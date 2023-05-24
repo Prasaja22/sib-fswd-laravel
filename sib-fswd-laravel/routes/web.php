@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\LandingController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::get('/home', function() {
     return view('home');
 });
+
+
+Route::get('/', [LandingController::class, 'index']);
+
+
+Route::get('/dashboard', [ItemsController::class, 'index']);
