@@ -29,6 +29,14 @@ Route::get('/home', function() {
 Route::get('/', [LandingController::class, 'index']);
 
 
-// Route::get('/dashboard', [ItemsController::class, 'index']);
+Route::get('/products', [ItemsController::class, 'index']);
+
+Route::post('/add-product', [ItemsController::class, 'store']);
+
+Route::put('/edit-product', [ItemsController::class, 'update']);
+
+Route::delete('/hapus-product', [ItemsController::class, 'destroy']);
 
 Route::get('/customer', [CustomerController::class, 'index']);
+
+

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
 use Illuminate\Http\Request;
 
 class ItemsController extends Controller
@@ -11,46 +12,10 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        $user = "Ghozy Nouval";
 
-        $users = [
-           [
-            "id" => "1",
-            "nama" => "Ghozy Nouval",
-            "email" => "Ghozy@gmail.com",
-            "role" => "Admin",
-            "status" => "active",
-            "date" => "1/2/2023",
-           ],
-           [
-            "id" => "2",
-            "nama" => "Maulana Alief",
-            "email" => "maulanaalif@gmail.com",
-            "role" => "Staff",
-            "status" => "active",
-            "date" => "1/2/2022",
-           ],
-           [
-            "id" => "3",
-            "nama" => "Ilham Maulana Alief",
-            "email" => "ilhamaliief@gmail.com",
-            "role" => "Admin",
-            "status" => "active",
-            "date" => "1/2/2022",
-           ],
-           [
-            "id" => "4",
-            "nama" => "Ilham Maulana",
-            "email" => "ilhammaulana@gmail.com",
-            "role" => "Staff",
-            "status" => "active",
-            "date" => "1/2/2022",
-           ],
-        ];
+        $car = Car::all();
 
-
-
-        return view('dashboard.pages.user')->with(compact('user', 'users'));
+        return view('dashboard.pages.product', compact('car'));
     }
 
 
@@ -67,7 +32,14 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        Car::create([
+            "name" => $request->name,
+            "type" => $request->type,
+            "jenis" => $request->jenis,
+        ]);
+
+        return redirect('/products');
     }
 
     /**
@@ -89,16 +61,25 @@ class ItemsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        Car::find($request->id)->update([
+            "name" => $request->name,
+            "type" => $request->type,
+            "jenis" => $request->jenis,
+        ]);
+
+        return redirect('/products');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        Car::find($request->id)->delete();
+
+        return redirect('/products');
     }
 }
