@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,6 @@ Route::get('/home', function() {
 Route::get('/', [LandingController::class, 'index']);
 
 
-Route::get('/dashboard', [ItemsController::class, 'index']);
+// Route::get('/dashboard', [ItemsController::class, 'index']);
+
+Route::get('/customer', [CustomerController::class, 'index']);

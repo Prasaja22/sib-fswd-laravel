@@ -50,7 +50,7 @@ class ItemsController extends Controller
 
 
 
-        return view('dashboard.pages.aside')->with(compact('user', 'users'));
+        return view('dashboard.pages.user')->with(compact('user', 'users'));
     }
 
 
