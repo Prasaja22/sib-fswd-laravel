@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
