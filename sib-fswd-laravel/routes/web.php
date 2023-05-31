@@ -4,6 +4,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,4 +44,11 @@ Route::get('/kategory', [KategoriController::class, 'index']);
 Route::post('/add-kategori', [KategoriController::class, 'store']);
 Route::put('/edit-kategori', [KategoriController::class, 'update']);
 Route::delete('/hapus-kategori', [KategoriController::class, 'destroy']);
+
+Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login-user', [LoginController::class, 'authenticate']);
+
+
+Route::get('/register', [RegisterController::class, 'index']);
+Route::post('/register-user', [RegisterController::class, 'store']);
 

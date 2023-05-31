@@ -45,7 +45,7 @@
                               <div class="taital_main">
                                  <h4 class="banner_taital">Welcome to Landing Page</h4>
                                  <p class="banner_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem I</p>
-                                 <div class="read_bt"><a href="{{ '/customer' }}">Dashboard</a></div>
+                                 <div class="read_bt"><a href="{{ '/login' }}">Login</a></div>
                               </div>
                            </div>
                            <div class="col-md-6">
