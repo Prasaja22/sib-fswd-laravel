@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Symfony\Component\VarDumper\Caster\RdKafkaCaster;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +25,8 @@ class DatabaseSeeder extends Seeder
             [
                 // CustomerTableSeeder::class,
                 // OrderTableSeeder::class
-                CarTableSeeder::class,
+                // CarTableSeeder::class,
+                KategoriTableSeeder::class,
             ]
             );
     }

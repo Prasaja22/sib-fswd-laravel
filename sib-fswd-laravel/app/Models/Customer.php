@@ -11,6 +11,12 @@ class Customer extends Model
 
     protected $table = 'customer';
 
+    protected $fillable = [
+        "nama",
+        "email",
+        "alamat",
+    ];
+
     function order(){
         return $this->hasMany(Order::class, 'id_customer', 'id');
     }

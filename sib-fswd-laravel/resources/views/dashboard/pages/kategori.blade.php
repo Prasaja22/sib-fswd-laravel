@@ -22,7 +22,7 @@
           </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="{{ '/kategory' }}">
+            <a class="nav-link active" href="#">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 
               </div>
@@ -77,6 +77,39 @@
         <div class="card mb-4">
           <div class="card-header pb-0">
             <h6>Customer Table</h6>
+            <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Tambah Produk
+        </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ '/add-kategori' }}" >
+                    @csrf
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Name</label>
+                      <input name="nama" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Deskripsi</label>
+                        <input name="deskripsi" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Type Produk">
+                      </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
@@ -84,16 +117,15 @@
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Alamat</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Kategori</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Deskripsi</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
                 </thead>
                 <tbody>
 
-                    @forelse ($customer as $item)
+                    @forelse ($data as $item)
                     <tr>
                         <td>
                             <p class="text-xs font-weight-bold mb-0">{{ $loop->iteration }}</p>
@@ -101,13 +133,13 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
-                            <p class="text-xs text-secondary mb-0">{{ $item->email }}</p>
+                            <h6 class="mb-0 text-sm">{{ $item->nama_kategori }}</h6>
+
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->alamat }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ $item->deskripsi }}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         <span class="badge badge-sm bg-gradient-success">Active</span>
@@ -115,7 +147,7 @@
                       <td class="align-middle">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $item->id }}">
-                            Edit Customer
+                            Edit Kategori
                         </button>
 
                         <!-- Modal -->
@@ -123,25 +155,21 @@
                             <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Edit Produk</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Kategori</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="post" action="{{ '/edit-customer' }}" >
+                                    <form method="post" action="{{ '/edit-kategori' }}" >
                                         @method('put')
                                         @csrf
                                         <div class="form-group">
                                         <label for="exampleFormControlInput1">Nama</label>
                                         <input name="id" type="hidden" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->id }} ">
-                                        <input name="nama" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->nama }} ">
+                                        <input name="nama" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->nama_kategori }} ">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Email</label>
-                                            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Type Produk" value=" {{ $item->email }} " >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1">Alamat</label>
-                                            <input name="alamat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Jenis" value=" {{ $item->alamat }} ">
+                                            <label for="exampleFormControlInput1">deskripsi</label>
+                                            <input name="deskripsi" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Type Produk" value=" {{ $item->deskripsi }} " >
                                         </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -152,7 +180,34 @@
                             </div>
                             </div>
                         </div>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editmodal{{ $item->id }}">
+                            Hapus
+                            </button>
 
+                            <!-- Modal -->
+                            <div class="modal fade" id="editmodal{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Peringatan!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <p>Apakah anda yakin ingin menghapus produk?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="/hapus-kategori" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <input name="id" type="hidden" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->id }} ">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success">Save changes</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
                       </td>
                     </tr>
 

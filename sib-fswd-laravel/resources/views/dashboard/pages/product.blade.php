@@ -22,7 +22,7 @@
           </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="#">
+            <a class="nav-link active" href=" {{ '/kategory' }} ">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 
               </div>
@@ -80,7 +80,7 @@
 <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Tambah Produk
-  </button>
+    </button>
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

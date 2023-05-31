@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class KategoriController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $customer = Customer::all();
+        $data = Kategori::all();
 
-        return view('dashboard.pages.customer', compact('customer'));
+        return view('dashboard.pages.kategori' , compact('data'));
     }
 
     /**
@@ -30,15 +30,12 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        // Customer::create(
-        //    [
-        //     "nama" => $request->nama,
-        //     "email" => $request->email,
-        //     "alamat" => $request->alamat,
-        //    ]
-        // );
+        Kategori::create([
+            "nama_kategori" => $request->nama,
+            "deskripsi" => $request->deskripsi,
+        ]);
 
-        // return redirect('/customer');
+        return redirect('/kategory');
     }
 
     /**
@@ -54,7 +51,7 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-
+        //
     }
 
     /**
@@ -62,14 +59,12 @@ class CustomerController extends Controller
      */
     public function update(Request $request)
     {
-        Customer::find($request->id)->update([
-            "nama" => $request->nama,
-            "email" => $request->email,
-            "alamat" => $request->alamat,
-
+        Kategori::find($request->id)->update([
+            "nama_kategori" => $request->nama,
+            "deskripsi" => $request->deskripsi,
         ]);
 
-        return redirect('/customer');
+        return redirect('/kategory');
     }
 
     /**
@@ -77,5 +72,8 @@ class CustomerController extends Controller
      */
     public function destroy(Request $request)
     {
+        Kategori::find($request->id)->delete();
+
+        return redirect('/kategory');
     }
 }
