@@ -37,9 +37,11 @@
               <span class="nav-link-text ms-1">Daftar Produk</span>
             </a>
           </li>
+        @auth
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
+        @if ( Auth::user()->role == 'admin' || Auth::user()->role == 'staff')
         <li class="nav-item">
           <a class="nav-link " href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -64,6 +66,10 @@
             <span class="nav-link-text ms-1"> User </span>
           </a>
         </li>
+        @else
+
+        @endif
+        @endauth
       </ul>
     </div>
   </aside>
@@ -85,9 +91,8 @@
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Alamat</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
                 </thead>
@@ -101,13 +106,13 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
+                            <h6 class="mb-0 text-sm">{{ $item->name }}</h6>
                             <p class="text-xs text-secondary mb-0">{{ $item->email }}</p>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->alamat }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ $item->role }}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         <span class="badge badge-sm bg-gradient-success">Active</span>
@@ -133,15 +138,19 @@
                                         <div class="form-group">
                                         <label for="exampleFormControlInput1">Nama</label>
                                         <input name="id" type="hidden" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->id }} ">
-                                        <input name="nama" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->nama }} ">
+                                        <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username" value=" {{ $item->name }} ">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Email</label>
-                                            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Type Produk" value=" {{ $item->email }} " >
+                                            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email" value=" {{ $item->email }} " >
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Alamat</label>
-                                            <input name="alamat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Jenis" value=" {{ $item->alamat }} ">
+                                            <label for="exampleFormControlInput1">Role</label>
+                                            <select class="form-select" aria-label="Role" name="role">
+                                                <option value="admin" {{ $item->role == "admin"  ?  'selected' : '' }}>Admin</option>
+                                                <option value="staff" {{ $item->role == "staff"  ?  'selected' : '' }}>Staff</option>
+                                                <option value="user" {{ $item->role == "user"  ?  'selected' : '' }}>User</option>
+                                              </select>
                                         </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
