@@ -118,49 +118,55 @@
                         <span class="badge badge-sm bg-gradient-success">Active</span>
                       </td>
                       <td class="align-middle">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $item->id }}">
-                            Edit Customer
-                        </button>
+                        @auth
+                            @if ( Auth::user()->role == 'admin')
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Edit Produk</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $item->id }}">
+                                Edit Customer
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit Produk</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" action="{{ '/edit-customer' }}" >
+                                            @method('put')
+                                            @csrf
+                                            <div class="form-group">
+                                            <label for="exampleFormControlInput1">Nama</label>
+                                            <input name="id" type="hidden" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->id }} ">
+                                            <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username" value=" {{ $item->name }} ">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Email</label>
+                                                <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email" value=" {{ $item->email }} " >
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Role</label>
+                                                <select class="form-select" aria-label="Role" name="role">
+                                                    <option value="admin" {{ $item->role == "admin"  ?  'selected' : '' }}>Admin</option>
+                                                    <option value="staff" {{ $item->role == "staff"  ?  'selected' : '' }}>Staff</option>
+                                                    <option value="user" {{ $item->role == "user"  ?  'selected' : '' }}>User</option>
+                                                  </select>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success">Save changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <form method="post" action="{{ '/edit-customer' }}" >
-                                        @method('put')
-                                        @csrf
-                                        <div class="form-group">
-                                        <label for="exampleFormControlInput1">Nama</label>
-                                        <input name="id" type="hidden" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->id }} ">
-                                        <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username" value=" {{ $item->name }} ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1">Email</label>
-                                            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email" value=" {{ $item->email }} " >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1">Role</label>
-                                            <select class="form-select" aria-label="Role" name="role">
-                                                <option value="admin" {{ $item->role == "admin"  ?  'selected' : '' }}>Admin</option>
-                                                <option value="staff" {{ $item->role == "staff"  ?  'selected' : '' }}>Staff</option>
-                                                <option value="user" {{ $item->role == "user"  ?  'selected' : '' }}>User</option>
-                                              </select>
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success">Save changes</button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
-                            </div>
-                        </div>
+                            @endif
+                        @endauth
+
 
                       </td>
                     </tr>
