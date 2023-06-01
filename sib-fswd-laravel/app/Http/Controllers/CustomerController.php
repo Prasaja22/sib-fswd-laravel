@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -12,7 +13,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customer = Customer::all();
+        $customer = User::all();
 
         return view('dashboard.pages.customer', compact('customer'));
     }
@@ -62,10 +63,10 @@ class CustomerController extends Controller
      */
     public function update(Request $request)
     {
-        Customer::find($request->id)->update([
-            "nama" => $request->nama,
+        User::find($request->id)->update([
+            "name" => $request->name,
             "email" => $request->email,
-            "alamat" => $request->alamat,
+            "role" => $request->role,
 
         ]);
 

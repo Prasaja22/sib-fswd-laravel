@@ -21,12 +21,6 @@
                             <div class="form-group d-flex">
                                 <input type="password" name="password" class="form-control rounded-left" placeholder="Password" required>
                             </div>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                              </select>
                             <div class="form-group d-md-flex">
                             </div>
                             <div class="form-group">

@@ -37,33 +37,39 @@
               <span class="nav-link-text ms-1">Daftar Produk</span>
             </a>
           </li>
-        <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="#">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Profile</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="#">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+          @auth
+          <li class="nav-item mt-3">
+              <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+          </li>
+          @if ( Auth::user()->role == 'admin' || Auth::user()->role == 'staff')
+          <li class="nav-item">
+            <a class="nav-link " href="#">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Profile</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="#">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 
-            </div>
-            <span class="nav-link-text ms-1">Grup Pengguna</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="{{ '/customer' }}">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              </div>
+              <span class="nav-link-text ms-1">Grup Pengguna</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{ '/customer' }}">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 
-            </div>
-            <span class="nav-link-text ms-1"> User </span>
-          </a>
-        </li>
+              </div>
+              <span class="nav-link-text ms-1"> User </span>
+            </a>
+          </li>
+          @else
+
+          @endif
+          @endauth
       </ul>
     </div>
   </aside>
@@ -145,6 +151,10 @@
                         <span class="badge badge-sm bg-gradient-success">Active</span>
                       </td>
                       <td class="align-middle">
+                        @auth
+
+                        @if ( Auth::user()->role == 'admin' )
+
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $item->id }}">
                             Edit Kategori
@@ -208,6 +218,9 @@
                                 </div>
                                 </div>
                             </div>
+                        @endif
+
+                        @endauth
                       </td>
                     </tr>
 

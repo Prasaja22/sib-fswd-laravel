@@ -13,7 +13,7 @@
                         <form action="/login-user" class="login-form" method="post">
                             @csrf
                             <div class="form-group">
-                                <input type="email" name="email"  class="form-control rounded-left" placeholder="Username" required>
+                                <input type="email" name="email"  class="form-control rounded-left" placeholder="Enail" required>
                             </div>
                             <div class="form-group d-flex">
                                 <input type="password" name="password" class="form-control rounded-left" placeholder="Password" required>
