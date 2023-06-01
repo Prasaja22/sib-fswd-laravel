@@ -47,6 +47,7 @@ Route::delete('/hapus-kategori', [KategoriController::class, 'destroy']);
 
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login-user', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'destroy']);
 
 
 Route::get('/register', [RegisterController::class, 'index']);

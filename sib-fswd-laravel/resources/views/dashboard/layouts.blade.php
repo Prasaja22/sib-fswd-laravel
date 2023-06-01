@@ -37,7 +37,6 @@
 
 <body class="g-sidenav-show   bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
-
     @yield('side')
 
   <main class="main-content position-relative border-radius-lg ">
@@ -62,8 +61,11 @@
             <li class="nav-item d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
+                @auth
                 <span class="d-sm-inline d-none">{{ Auth::user()->name }}</span>
+                @endauth
               </a>
+
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
@@ -236,22 +238,21 @@
         </div>
         <div class="col-xl-3 col-sm-6">
           <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
-                    <h5 class="font-weight-bolder">
-                      $103,430
-                    </h5>
-                    <p class="mb-0">
-                      <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
-                    </p>
-                  </div>
+              <div class="card-body p-3">
+                @auth
+                <div class="container d-flex justify-content-end">
+                    <form action="{{ '/logout' }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-warning">Logout</button>
+                    </form>
                 </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                @endauth
+              <div class="row">
+                <div class="col-12">
+                  <div class="numbers">
+
+                    <p class="mb-0">
+                    </p>
                   </div>
                 </div>
               </div>
