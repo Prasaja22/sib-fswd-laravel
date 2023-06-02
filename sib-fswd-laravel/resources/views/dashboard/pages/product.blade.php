@@ -83,6 +83,18 @@
         <div class="card mb-4">
           <div class="card-header pb-0">
             <h6>Product Table</h6>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $e)
+                        <li>
+                            <p class="text-white" >{{ $e}}</p>
+                        </li>
+                    @endforeach
+
+                </ul>
+            </div>
+            @endif
 <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Tambah Produk
@@ -170,6 +182,18 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $e)
+                                                    <li>
+                                                        <p class="text-white" >{{ $e}}</p>
+                                                    </li>
+                                                @endforeach
+
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form method="post" action="{{ '/edit-product' }}" >
                                         @method('put')
                                         @csrf

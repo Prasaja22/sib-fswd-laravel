@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ItemsController extends Controller
 {
@@ -32,6 +33,15 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
+        $validateCreate = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'type' => 'required|string',
+            'jenis' => 'required|string',
+        ]);
+
+        if($validateCreate->fails()){
+            return back()->withErrors($validateCreate)->withInput();
+        }
 
         Car::create([
             "name" => $request->name,
@@ -63,6 +73,17 @@ class ItemsController extends Controller
      */
     public function update(Request $request)
     {
+
+        $validate = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'type' => 'required|string',
+            'jenis' => 'required|string',
+        ]);
+
+        if($validate->fails()){
+            return back()->withErrors($validate)->withInput();
+        }
+
         Car::find($request->id)->update([
             "name" => $request->name,
             "type" => $request->type,
