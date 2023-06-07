@@ -83,9 +83,21 @@
         <div class="card mb-4">
           <div class="card-header pb-0">
             <h6>Customer Table</h6>
+            @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $e)
+                              <li>
+                                  <p class="text-white" >{{ $e}}</p>
+                              </li>
+                          @endforeach
+
+                      </ul>
+                  </div>
+                  @endif
           </div>
           <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
+              <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
@@ -140,7 +152,7 @@
                                             @csrf
                                             <div class="form-group">
                                             <label for="exampleFormControlInput1">Nama</label>
-                                            <input name="id" type="hidden" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->id }} ">
+                                            <input name="id" type="hidden" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->id }}  ">
                                             <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username" value=" {{ $item->name }} ">
                                             </div>
                                             <div class="form-group">
