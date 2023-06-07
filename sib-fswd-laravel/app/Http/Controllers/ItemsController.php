@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Spatie\Backtrace\File;
 
 class ItemsController extends Controller
 {
@@ -43,10 +45,15 @@ class ItemsController extends Controller
             return back()->withErrors($validateCreate)->withInput();
         }
 
+        $image = $request->file('gambar');
+        $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images'), $imageName);
+
         Car::create([
             "name" => $request->name,
             "type" => $request->type,
             "jenis" => $request->jenis,
+            "image" => $imageName,
         ]);
 
         return redirect('/products');
@@ -84,11 +91,29 @@ class ItemsController extends Controller
             return back()->withErrors($validate)->withInput();
         }
 
-        Car::find($request->id)->update([
-            "name" => $request->name,
-            "type" => $request->type,
-            "jenis" => $request->jenis,
-        ]);
+
+        if($request->file('gambar')){
+
+            $image = $request->file('gambar');
+            $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+
+            Car::find($request->id)->update([
+                "name" => $request->name,
+                "type" => $request->type,
+                "jenis" => $request->jenis,
+                "image" => $imageName
+            ]);
+        } else {
+            Car::find($request->id)->update([
+                "name" => $request->name,
+                "type" => $request->type,
+                "jenis" => $request->jenis,
+            ]);
+        }
+
+
+
 
         return redirect('/products');
 
@@ -99,7 +124,18 @@ class ItemsController extends Controller
      */
     public function destroy(Request $request)
     {
+        $car = Car::find($request->id);
+
+        $imageName = $car->image;
+
         Car::find($request->id)->delete();
+
+        if(!empty($imageName)){
+            $imagePath = public_path('images/' . $imageName);
+            if (file_exists($imagePath)) {
+               unlink($imagePath);
+            }
+        }
 
         return redirect('/products');
     }

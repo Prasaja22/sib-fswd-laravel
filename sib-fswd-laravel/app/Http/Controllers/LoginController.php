@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Error;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,8 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             return redirect()->intended('/products');
+        } else {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Email atau Password salah']);
         }
 
         return back()->withErrors([

@@ -241,10 +241,35 @@
               <div class="card-body p-3">
                 @auth
                 <div class="container d-flex justify-content-end">
-                    <form action="{{ '/logout' }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-warning">Logout</button>
-                    </form>
+
+                        <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editmodal">
+                            Logout
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Peringatan!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <p>Apakah anda yakin ingin logout?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="{{ '/logout' }}" method="post">
+                                            @csrf
+
+                                            <input name="id" type="hidden" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value=" {{ $item->id }} ">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn btn-success">Ya</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
                 </div>
                 @endauth
               <div class="row">

@@ -10,16 +10,32 @@
                             <span class="fa fa-user-o"></span>
                         </div>
                         <h3 class="text-center text-secondary mb-4">Register</h3>
+
                         <form action="{{ '/register-user' }}" class="login-form" method="post">
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $e)
+                                        <li>
+                                            <p class="text-dark" >{{ $e}}</p>
+                                        </li>
+                                    @endforeach
+
+                                </ul>
+                            </div>
+                            @endif
                             @csrf
                             <div class="form-group">
-                                <input type="text" name="username" class="form-control rounded-left" placeholder="Username" required>
+                                <input type="text" name="username" class="form-control rounded-left" placeholder="Username" required value="{{ old('username') }}">
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="role" class="form-control rounded-left" placeholder="Username" required value="user">
                             </div>
                             <div class="form-group d-flex">
-                                <input type="email" name="email" class="form-control rounded-left" placeholder="E-mail" required>
+                                <input type="email" name="email" class="form-control rounded-left" placeholder="E-mail" required value="{{ old('email') }}">
                             </div>
                             <div class="form-group d-flex">
-                                <input type="password" name="password" class="form-control rounded-left" placeholder="Password" required>
+                                <input type="password" name="password" class="form-control rounded-left" placeholder="Password" required >
                             </div>
                             <div class="form-group d-md-flex">
                             </div>

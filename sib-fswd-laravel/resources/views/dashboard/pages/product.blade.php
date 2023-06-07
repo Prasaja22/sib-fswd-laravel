@@ -109,19 +109,23 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form method="post" action="{{ '/add-product' }}" >
+            <form method="post" action="{{ '/add-product' }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Name</label>
-                  <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk">
+                  <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Produk" value="{{ old('name') }}">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Type</label>
-                    <input name="type" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Type Produk">
+                    <input name="type" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Type Produk" value="{{ old('type') }}">
                   </div>
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Jenis</label>
-                    <input name="jenis" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Jenis">
+                    <input name="jenis" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Jenis" value="{{ old('jenis') }}">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Gambar</label>
+                    <input name="gambar" type="file" class="form-control" id="exampleFormControlInput1" value="{{ old('gambar') }}">
                   </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -134,12 +138,13 @@
   </div>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
+            <div class="table-responsive p-2">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Product</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Gambar</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Type</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                     <th class="text-secondary opacity-7"></th>
@@ -157,6 +162,24 @@
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm">{{ $item->name }}</h6>
                             <p class="text-xs text-secondary mb-0">{{ $item->type }}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-image{{ $item->id }}">
+                                <img class="img-fluid img-thumbnail" style="width: 260px; height: 180px;" src=" {{ asset('images/' . $item->image) }} " alt="gambar tidak tersedia">
+                            </a>
+                            <div class="modal fade" id="modal-image{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="gambarModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-body">
+                                      <img class="img-fluid" src="{{ asset('images/' . $item->image) }}" alt="Gambar tidak tersedia">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                           </div>
                         </div>
                       </td>
@@ -182,19 +205,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $e)
-                                                    <li>
-                                                        <p class="text-white" >{{ $e}}</p>
-                                                    </li>
-                                                @endforeach
-
-                                            </ul>
-                                        </div>
-                                    @endif
-                                    <form method="post" action="{{ '/edit-product' }}" >
+                                    <form method="post" action="{{ '/edit-product' }}" enctype="multipart/form-data" >
                                         @method('put')
                                         @csrf
                                         <div class="form-group">
@@ -210,6 +221,10 @@
                                             <label for="exampleFormControlInput1">Jenis</label>
                                             <input name="jenis" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Jenis" value=" {{ $item->jenis }} ">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlInput1">Gambar</label>
+                                            <input name="gambar" type="file" class="form-control" id="exampleFormControlInput1" value="{{ $item->images }}">
+                                          </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-success">Save changes</button>

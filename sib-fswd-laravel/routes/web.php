@@ -31,21 +31,23 @@ Route::get('/home', function() {
 
 Route::get('/', [LandingController::class, 'index']);
 
+Route::get('/products', [ItemsController::class, 'index'])->middleware('auth');
+Route::post('/add-product', [ItemsController::class, 'store'])->middleware('auth');
+Route::put('/edit-product', [ItemsController::class, 'update'])->middleware('auth');
+Route::delete('/hapus-product', [ItemsController::class, 'destroy'])->middleware('auth');
 
-Route::get('/products', [ItemsController::class, 'index']);
-Route::post('/add-product', [ItemsController::class, 'store']);
-Route::put('/edit-product', [ItemsController::class, 'update']);
-Route::delete('/hapus-product', [ItemsController::class, 'destroy']);
 
-Route::get('/customer', [CustomerController::class, 'index']);
-Route::put('/edit-customer', [CustomerController::class, 'update']);
 
-Route::get('/kategory', [KategoriController::class, 'index']);
-Route::post('/add-kategori', [KategoriController::class, 'store']);
-Route::put('/edit-kategori', [KategoriController::class, 'update']);
-Route::delete('/hapus-kategori', [KategoriController::class, 'destroy']);
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/customer', [CustomerController::class, 'index'])->middleware('auth');
+Route::put('/edit-customer', [CustomerController::class, 'update'])->middleware('auth');
+
+Route::get('/kategory', [KategoriController::class, 'index'])->middleware('auth');
+Route::post('/add-kategori', [KategoriController::class, 'store'])->middleware('auth');
+Route::put('/edit-kategori', [KategoriController::class, 'update'])->middleware('auth');
+Route::delete('/hapus-kategori', [KategoriController::class, 'destroy'])->middleware('auth');
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login-user', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'destroy']);
 

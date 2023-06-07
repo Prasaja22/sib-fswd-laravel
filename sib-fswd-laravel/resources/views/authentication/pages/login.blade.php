@@ -9,11 +9,20 @@
                         <div class="icon d-flex align-items-center justify-content-center bg-warning">
                             <span class="fa fa-user-o"></span>
                         </div>
+                        @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                         <h3 class="text-center text-secondary mb-4">Have an account?</h3>
                         <form action="/login-user" class="login-form" method="post">
                             @csrf
                             <div class="form-group">
-                                <input type="email" name="email"  class="form-control rounded-left" placeholder="Enail" required>
+                                <input type="email" name="email"  class="form-control rounded-left" placeholder="Enail" required value="{{ old('email') }}">
                             </div>
                             <div class="form-group d-flex">
                                 <input type="password" name="password" class="form-control rounded-left" placeholder="Password" required>

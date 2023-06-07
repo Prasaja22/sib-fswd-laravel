@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -29,10 +30,23 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validate = Validator::make($request->all(), [
+            'username' => 'required|min:4',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+            'role' => 'required',
+        ]);
+
+        if($validate->fails()){
+            return back()->withInput()->withErrors($validate);
+        }
+
         User::create([
             'name' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
         ]);
 
         return redirect('/login');

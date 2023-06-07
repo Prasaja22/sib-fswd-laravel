@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -63,6 +64,17 @@ class CustomerController extends Controller
      */
     public function update(Request $request)
     {
+
+        $validate = Validator::make($request->all(), [
+            'name'  => 'required|string',
+            'email'  => 'required|string',
+            'role'  => 'required|string',
+        ]);
+
+        if($validate->fails()){
+            return redirect()->back()->withInput()->withErrors($validate);
+        }
+
         User::find($request->id)->update([
             "name" => $request->name,
             "email" => $request->email,

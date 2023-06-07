@@ -15,5 +15,6 @@ class Car extends Model
         "name",
         "type",
         "jenis",
+        "image",
     ];
 }
