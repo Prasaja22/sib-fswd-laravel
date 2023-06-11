@@ -9,7 +9,7 @@ class Kategori extends Model
 {
     use HasFactory;
 
-    protected $table = 'Kategori';
+    protected $table = 'kategori';
 
     protected $fillable = [
         "nama_kategori",

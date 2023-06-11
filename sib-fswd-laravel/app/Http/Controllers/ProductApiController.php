@@ -52,7 +52,6 @@ class ProductApiController extends Controller
             "name" => $request->name,
             "type" => $request->type,
             "jenis" => $request->jenis,
-            "image" => $request->image,
         ]);
 
         return response()->json([

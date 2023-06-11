@@ -23,10 +23,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(
             [
-                OrderTableSeeder::class,
+                // OrderTableSeeder::class,
                 // CustomerTableSeeder::class,
                 // CarTableSeeder::class,
                 // KategoriTableSeeder::class,
+                UserTableSeeder::class,
             ]
             );
     }
